@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   <TrackPointPrefab>k__BackingField: {fileID: 7407339340701951398, guid: 3821e58c2da011145ae089c0ab641f1e, type: 3}
-  <PlayerCar>k__BackingField: {fileID: 0}
+  <PlayerCar>k__BackingField: {fileID: 7762565399095393742, guid: 5a3291985f75415408e02799275cbf12, type: 3}
   <SecondsToStart>k__BackingField: 3
   <MillisecondsToRegisterPathPoint>k__BackingField: 500
   <MillisecondsToStartRegisterPathPoint>k__BackingField: 900
