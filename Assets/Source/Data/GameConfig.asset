@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e95c84ecfdb64643889aba3a7bef6ee, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
+  <TrackPointPrefab>k__BackingField: {fileID: 7407339340701951398, guid: 3821e58c2da011145ae089c0ab641f1e, type: 3}
+  <PlayerCar>k__BackingField: {fileID: 0}
   <SecondsToStart>k__BackingField: 3
   <MillisecondsToRegisterPathPoint>k__BackingField: 500
   <MillisecondsToStartRegisterPathPoint>k__BackingField: 900

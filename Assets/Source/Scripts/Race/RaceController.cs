@@ -5,16 +5,16 @@ using VContainer.Unity;
 
 public class RaceController : IInitializable, IDisposable
 {
-    private readonly Timer _timer;
+    private readonly TimerBeforeStart _timerBeforeStart;
     private readonly PathRecorder _pathRecorder;
     private readonly Button _startButton;
     private readonly IInputRouter _inputRouter;
     private readonly FinishGate _finishGate;
 
-    public RaceController(Button startButton, Timer timer, PathRecorder pathRecorder,
+    public RaceController(Button startButton, TimerBeforeStart timerBeforeStart, PathRecorder pathRecorder,
         PlayerInputRouter playerInputRouter, FinishGate finishGate)
     {
-        _timer = timer;
+        _timerBeforeStart = timerBeforeStart;
         _pathRecorder = pathRecorder;
         _startButton = startButton;
         _inputRouter = playerInputRouter;
@@ -41,7 +41,7 @@ public class RaceController : IInitializable, IDisposable
         StartRaceAsync().Forget();
         async UniTask StartRaceAsync()
         {
-            await _timer.StartTimerAsync();
+            await _timerBeforeStart.StartTimerAsync();
             
             _inputRouter.OnEnable();
 

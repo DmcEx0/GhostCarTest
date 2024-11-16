@@ -3,7 +3,7 @@ using System.Globalization;
 using Cysharp.Threading.Tasks;
 using TMPro;
 
-public class Timer
+public class TimerBeforeStart
 {
     private const int MinTime = 1;
     private const int TimerStep = 1;
@@ -13,7 +13,7 @@ public class Timer
     
     private TimeSpan _currentTime;
     
-    public Timer(TMP_Text timerText, GameConfig gameConfig)
+    public TimerBeforeStart(TMP_Text timerText, GameConfig gameConfig)
     {
         _gameConfig = gameConfig;
         _timerText = timerText;

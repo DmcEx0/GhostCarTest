@@ -26,9 +26,10 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(_carController);
         builder.RegisterComponent(_finishGate);
 
-        builder.Register<Timer>(Lifetime.Scoped).WithParameter(_timerText);
-        builder.Register<PathRecorder>(Lifetime.Scoped);
+        builder.Register<TimerBeforeStart>(Lifetime.Scoped).WithParameter(_timerText);
+        builder.Register<PathRecorder>(Lifetime.Scoped).WithParameter(_carController.transform);
         builder.Register<PlayerInputRouter>(Lifetime.Scoped);
+        builder.Register<GameObjectFactory>(Lifetime.Scoped);
         
         builder.RegisterEntryPoint<RaceController>().WithParameter(_startButton);
     }
