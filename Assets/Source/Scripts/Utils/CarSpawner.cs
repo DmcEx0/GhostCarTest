@@ -12,7 +12,7 @@ public class CarSpawner
     
     [Inject]
     public CarSpawner(GameConfig gameConfig, GameObjectFactory factory, CinemachineVirtualCamera virtualCamera,
-        Transform playerSpawnPoint)
+        Transform playerSpawnPoint, PlayerInputRouter playerInputRouter)
     {
         _gameConfig = gameConfig;
         _factory = factory;
@@ -23,6 +23,7 @@ public class CarSpawner
     public SimcadeVehicleController SpawnPlayer()
     {
         var playerCar = SpawnCar();
+        
         
         _virtualCamera.Follow = playerCar.transform;
         _virtualCamera.LookAt = playerCar.transform;
@@ -37,6 +38,6 @@ public class CarSpawner
 
     private SimcadeVehicleController SpawnCar()
     {
-        return  _factory.CreateWithResolving(_gameConfig.PlayerCar, _playerSpawnPoint.position);
+        return  _factory.Create(_gameConfig.PlayerCar, _playerSpawnPoint.position);
     }
 }

@@ -41,6 +41,11 @@ public class PathRecorder
         _isRecording = false;
     }
     
+    public void Reset()
+    {
+        _pathPoints.Clear();
+    }
+    
     public void SetPlayerTransform(Transform playerTransform)
     {
         _playerTransform = playerTransform;

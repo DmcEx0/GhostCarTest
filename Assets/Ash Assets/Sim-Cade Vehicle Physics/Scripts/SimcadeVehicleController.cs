@@ -79,10 +79,9 @@ namespace Ashsvp
 
         private IInputRouter _inputRouter;
 
-        [Inject]
-        private void Configure(PlayerInputRouter playerInputRouter)
+        public void Configure(IInputRouter inputRouter)
         {
-            _inputRouter = playerInputRouter;
+            _inputRouter = inputRouter;
         }
 
         void Awake()

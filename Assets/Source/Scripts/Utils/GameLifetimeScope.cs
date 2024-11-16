@@ -31,6 +31,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.Register<PlayerInputRouter>(Lifetime.Scoped);
         builder.Register<GameObjectFactory>(Lifetime.Scoped);
         
-        builder.RegisterEntryPoint<RaceController>().WithParameter(_startButton).WithParameter(_playerSpawnPoint);
+        builder.RegisterEntryPoint<RaceController>().WithParameter(_startButton).WithParameter(_playerSpawnPoint)
+            .WithParameter(_raceCounterText);
     }
 }
