@@ -17,18 +17,22 @@ public class GameLifetimeScope : LifetimeScope
 
     [Space] [Header("Track")] 
     [SerializeField] private FinishGate _finishGate;
+    [SerializeField] private FallenZone _fallenZone;
     [SerializeField] private Transform _playerSpawnPoint;
+    [SerializeField] private Transform _ghostSpawnPoint;
     
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponent(_gameConfig);
         builder.RegisterComponent(_finishGate);
+        builder.RegisterComponent(_fallenZone);
 
         builder.Register<TimerBeforeStart>(Lifetime.Scoped).WithParameter(_timerText);
         builder.Register<CarSpawner>(Lifetime.Scoped).WithParameter(_camera).WithParameter(_playerSpawnPoint);
         
         builder.Register<PathRecorder>(Lifetime.Scoped);
         builder.Register<PlayerInputRouter>(Lifetime.Scoped);
+        builder.Register<GhostInputRouter>(Lifetime.Scoped);
         builder.Register<GameObjectFactory>(Lifetime.Scoped);
         
         builder.RegisterEntryPoint<RaceController>().WithParameter(_startButton).WithParameter(_playerSpawnPoint)

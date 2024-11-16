@@ -16,13 +16,15 @@ public class RaceController : IInitializable, IStartable, IDisposable
     private readonly IInputRouter _inputRouter;
     private readonly FinishGate _finishGate;
     private readonly CarSpawner _carSpawner;
+    private readonly FallenZone _fallenZone;
 
-    private TMP_Text _raceCounterText;
+    private readonly TMP_Text _raceCounterText;
 
     private int _currentRace = 1;
 
     public RaceController(Button startButton, TimerBeforeStart timerBeforeStart, PathRecorder pathRecorder,
-        PlayerInputRouter playerInputRouter, FinishGate finishGate, CarSpawner carSpawner, TMP_Text raceCounterText)
+        PlayerInputRouter playerInputRouter, FinishGate finishGate, CarSpawner carSpawner, TMP_Text raceCounterText,
+        FallenZone fallenZone)
     {
         _timerBeforeStart = timerBeforeStart;
         _pathRecorder = pathRecorder;
@@ -31,13 +33,15 @@ public class RaceController : IInitializable, IStartable, IDisposable
         _finishGate = finishGate;
         _carSpawner = carSpawner;
         _raceCounterText = raceCounterText;
+        _fallenZone = fallenZone;
     }
 
     public void Initialize()
     {
         _startButton.onClick.AddListener(StartRace);
         _finishGate.FinishReached += OnFinishReached;
-
+        _fallenZone.Fallen += OnFallen;
+        
         _inputRouter.OnDisable();
     }
 
@@ -61,6 +65,7 @@ public class RaceController : IInitializable, IStartable, IDisposable
     {
         _startButton.onClick.RemoveListener(StartRace);
         _finishGate.FinishReached -= OnFinishReached;
+        _fallenZone.Fallen -= OnFallen;
     }
 
     private void StartWithoutGhost(SimcadeVehicleController playerCar)
@@ -70,7 +75,7 @@ public class RaceController : IInitializable, IStartable, IDisposable
 
     private void StartWithGhost()
     {
-
+        _ = _carSpawner.SpawnGhost();
     }
 
     private void StartRace()
@@ -89,6 +94,11 @@ public class RaceController : IInitializable, IStartable, IDisposable
         }
     }
 
+    private void SetRaceCounterText()
+    {
+        _raceCounterText.text = string.Format(_raceCounterText.text, _currentRace);
+    }
+
     private void OnFinishReached()
     {
         _inputRouter.OnDisable();
@@ -97,9 +107,7 @@ public class RaceController : IInitializable, IStartable, IDisposable
         _currentRace = Mathf.Clamp(_currentRace++, 1, MaxRaceCount);
     }
 
-    
-    private void SetRaceCounterText()
+    private void OnFallen()
     {
-        _raceCounterText.text = string.Format(_raceCounterText.text, _currentRace);
     }
 }
