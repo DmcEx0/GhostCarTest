@@ -93,9 +93,13 @@ namespace Ashsvp
         public float[] forwardSlip = new float[4], slipCoeff = new float[4], skidTotal = new float[4];
         private WheelSkid[] wheelSkids = new WheelSkid[4];
 
-
+        private IInputRouter _inputRouter;
+        
         void Awake()
         {
+            _inputRouter = new PlayerInputRouter();
+            _inputRouter.OnEnable();
+            //----------------------------------------------------------------------------------------
             GameObject SkidMarkController_Self = Instantiate(SkidMarkController);
             SkidMarkController_Self.GetComponent<Skidmarks>().SkidmarkWidth = skidmarkWidth;
 
@@ -133,9 +137,12 @@ namespace Ashsvp
         {
             if (CanDrive && CanAccelerate)
             {
-                accelerationInput = Input.GetAxis("Vertical");
-                steerInput = Input.GetAxis("Horizontal");
-                brakeInput = Input.GetAxis("Jump");
+                // accelerationInput = Input.GetAxis("Vertical");
+                accelerationInput = _inputRouter.GetAcceleration();
+                // steerInput = Input.GetAxis("Horizontal");
+                steerInput = _inputRouter.GetSteering();
+                // brakeInput = Input.GetAxis("Jump");
+                brakeInput = _inputRouter.GetBreak();
             }
             else if(CanDrive && !CanAccelerate)
             {
