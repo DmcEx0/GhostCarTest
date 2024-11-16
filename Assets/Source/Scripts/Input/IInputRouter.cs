@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public interface IInputRouter
 {
     public void OnEnable();

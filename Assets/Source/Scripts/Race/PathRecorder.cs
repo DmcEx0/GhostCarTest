@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class PathRecorder
 {
-    private GameConfig _gameConfig;
-    private Transform _playerTransform;
+    private readonly GameConfig _gameConfig;
+    private readonly Transform _playerTransform;
+    
     private Queue<Vector3> _pathPoints;
 
     private bool _isRecording;
 
-    public PathRecorder(GameConfig gameConfig, Transform playerTransform)
+    public PathRecorder(GameConfig gameConfig/*, Transform playerTransform*/)
     {
         _gameConfig = gameConfig;
-        _playerTransform = playerTransform;
+        // _playerTransform = playerTransform;
 
         _pathPoints = new Queue<Vector3>();
     }
@@ -26,8 +27,8 @@ public class PathRecorder
 
         while (_isRecording)
         {
-            _pathPoints.Enqueue(_playerTransform.position);
-
+            // _pathPoints.Enqueue(_playerTransform.position);
+            
             await GetDelayMillisecondsAsync(_gameConfig.MillisecondsToRegisterPathPoint);
         }
     }

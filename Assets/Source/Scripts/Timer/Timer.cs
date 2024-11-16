@@ -5,14 +5,15 @@ using TMPro;
 
 public class Timer
 {
-    private const int MinTime = 0;
+    private const int MinTime = 1;
     private const int TimerStep = 1;
 
-    private GameConfig _gameConfig;
-    private TMP_Text _timerText;
+    private readonly GameConfig _gameConfig;
+    private readonly TMP_Text _timerText;
+    
     private TimeSpan _currentTime;
     
-    public Timer(GameConfig gameConfig, TMP_Text timerText)
+    public Timer(TMP_Text timerText, GameConfig gameConfig)
     {
         _gameConfig = gameConfig;
         _timerText = timerText;
@@ -21,6 +22,7 @@ public class Timer
     public async UniTask StartTimerAsync()
     {
         _currentTime = TimeSpan.FromSeconds(_gameConfig.SecondsToStart);
+        _timerText.gameObject.SetActive(true);
         
         while (_currentTime >= TimeSpan.FromSeconds(MinTime))
         {

@@ -490,12 +490,12 @@ GameObject:
   - component: {fileID: 216790418}
   - component: {fileID: 216790417}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &216790416
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2103,6 +2103,8 @@ MonoBehaviour:
   _startButton: {fileID: 216790417}
   _raceCounterText: {fileID: 1413189329}
   _timerText: {fileID: 754264978}
+  _carController: {fileID: 1830770399}
+  _finishGate: {fileID: 1715731969}
 --- !u!4 &935680520
 Transform:
   m_ObjectHideFlags: 0
@@ -2879,7 +2881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -91.6, y: -45.6}
+  m_AnchoredPosition: {x: -91.600006, y: -45.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1413189329
@@ -3284,7 +3286,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7546807112736260502, guid: e083b9c6bca91b14bab710d786f41c8f, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7546807113287405351, guid: e083b9c6bca91b14bab710d786f41c8f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1830770400}
   m_SourcePrefab: {fileID: 100100000, guid: e083b9c6bca91b14bab710d786f41c8f, type: 3}
 --- !u!4 &1500718377 stripped
 Transform:
@@ -3726,6 +3731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1715731967}
   - component: {fileID: 1715731968}
+  - component: {fileID: 1715731969}
   m_Layer: 0
   m_Name: Finish
   m_TagString: Untagged
@@ -3770,6 +3776,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 17.228851, y: 12.626339, z: 1}
   m_Center: {x: 75.54672, y: 5.82817, z: 480}
+--- !u!114 &1715731969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715731966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8049ebe5472004abd7c95b404400a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1733042554
 GameObject:
   m_ObjectHideFlags: 0
@@ -4018,6 +4036,43 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1385943195}
   m_SourcePrefab: {fileID: 100100000, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
+--- !u!1 &1830770392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7546807113287405351, guid: e083b9c6bca91b14bab710d786f41c8f, type: 3}
+  m_PrefabInstance: {fileID: 1500718376}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1830770399 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7546807113287405344, guid: e083b9c6bca91b14bab710d786f41c8f, type: 3}
+  m_PrefabInstance: {fileID: 1500718376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830770392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228805c2cfb68164680169bec503f811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1830770400
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830770392}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5970619, y: 1, z: 5.023636}
+  m_Center: {x: -0.04338777, y: 0, z: 0.03858757}
 --- !u!1 &1878795285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2927259199662858590, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
@@ -4284,7 +4339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -4322,7 +4377,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
