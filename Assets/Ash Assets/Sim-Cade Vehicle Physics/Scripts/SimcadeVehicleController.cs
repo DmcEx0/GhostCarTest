@@ -317,7 +317,6 @@ namespace Ashsvp
                 {
                     rb.AddForceAtPosition(springDir * force, hardPoint);
                 }
-
             }
             else
             {
