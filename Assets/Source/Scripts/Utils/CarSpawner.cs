@@ -23,6 +23,8 @@ public class CarSpawner
         _virtualCamera = virtualCamera;
         _playerSpawnPoint = playerSpawnPoint;
         _ghostSpawnPoint = ghostSpawnPoint;
+        _playerInputRouter = playerInputRouter;
+        _ghostInputRouter = ghostInputRouter;
     }
 
     public SimcadeVehicleController SpawnPlayer()

@@ -30,7 +30,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.Register<TimerBeforeStart>(Lifetime.Scoped).WithParameter(_timerText);
         builder.Register<CarSpawner>(Lifetime.Scoped).WithParameter(_camera).WithParameter(_playerSpawnPoint);
         
-        builder.Register<PathRecorder>(Lifetime.Scoped);
+        builder.Register<PathRecorder>(Lifetime.Scoped).AsImplementedInterfaces();
         builder.Register<PlayerInputRouter>(Lifetime.Scoped);
         builder.Register<GhostInputRouter>(Lifetime.Scoped);
         builder.Register<GameObjectFactory>(Lifetime.Scoped);

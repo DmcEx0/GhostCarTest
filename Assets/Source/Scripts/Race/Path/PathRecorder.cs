@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-public class PathRecorder
+public class PathRecorder : IPathRecorder, IPathPoints
 {
     private readonly GameConfig _gameConfig;
     private readonly GameObjectFactory _factory;
@@ -13,6 +12,8 @@ public class PathRecorder
     private Transform _playerTransform;
 
     private bool _isRecording;
+
+    public IReadOnlyList<Vector3> PathPoints => _pathPoints;
 
     public PathRecorder(GameConfig gameConfig, GameObjectFactory factory)
     {

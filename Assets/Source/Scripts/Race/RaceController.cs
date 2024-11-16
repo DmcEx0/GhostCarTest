@@ -11,7 +11,7 @@ public class RaceController : IInitializable, IStartable, IDisposable
     private const int MaxRaceCount = 2;
 
     private readonly TimerBeforeStart _timerBeforeStart;
-    private readonly PathRecorder _pathRecorder;
+    private readonly IPathRecorder _pathRecorder;
     private readonly Button _startButton;
     private readonly IInputRouter _inputRouter;
     private readonly FinishGate _finishGate;
@@ -22,7 +22,7 @@ public class RaceController : IInitializable, IStartable, IDisposable
 
     private int _currentRace = 1;
 
-    public RaceController(Button startButton, TimerBeforeStart timerBeforeStart, PathRecorder pathRecorder,
+    public RaceController(Button startButton, TimerBeforeStart timerBeforeStart, IPathRecorder pathRecorder,
         PlayerInputRouter playerInputRouter, FinishGate finishGate, CarSpawner carSpawner, TMP_Text raceCounterText,
         FallenZone fallenZone)
     {
