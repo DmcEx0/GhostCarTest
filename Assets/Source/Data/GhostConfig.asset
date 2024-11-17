@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GhostConfig
   m_EditorClassIdentifier: 
   <Material>k__BackingField: {fileID: 2100000, guid: b6eed066a94abcf49b12326ad42df39d, type: 2}
-  <DistanceForRegisterPoint>k__BackingField: 2
+  <DistanceForRegisterPoint>k__BackingField: 5
   <AngleForBreaking>k__BackingField: 15
-  <MaxSpeed>k__BackingField: 0.7
-  <SpeedOnSteering>k__BackingField: 0.26
+  <MaxSpeed>k__BackingField: 0.8
+  <SpeedOnSteering>k__BackingField: 0.3
   <MillisecondsBreakingTime>k__BackingField: 200

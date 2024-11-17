@@ -78,6 +78,8 @@ namespace Ashsvp
         private WheelSkid[] wheelSkids = new WheelSkid[4];
 
         private IInputRouter _inputRouter;
+        
+        [field: SerializeField] public MeshRenderer BodyMesh { get; private set; }
 
         public void Configure(IInputRouter inputRouter)
         {

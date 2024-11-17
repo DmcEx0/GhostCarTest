@@ -1070,6 +1070,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  <BodyMesh>k__BackingField: {fileID: 928083358936564132}
 --- !u!54 &3963548091789081746
 Rigidbody:
   m_ObjectHideFlags: 0

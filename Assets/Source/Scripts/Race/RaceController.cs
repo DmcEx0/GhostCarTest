@@ -51,8 +51,6 @@ namespace GhostRaceTest.Race
 
         public void Start()
         {
-            _pathRecorder.StopRecordPath();
-
             _uiProvider.NextRaceButton.gameObject.SetActive(false);
             _uiProvider.StartButton.gameObject.SetActive(true);
 
@@ -72,6 +70,7 @@ namespace GhostRaceTest.Race
             }
         }
 
+        // если заезд без призрака - регистрируем путь игрока
         private void StartWithoutGhost()
         {
             _pathRecorder.SetPlayerTransform(_playerCar.transform);
@@ -92,7 +91,7 @@ namespace GhostRaceTest.Race
 
             async UniTask StartRaceAsync()
             {
-                await _timerBeforeStart.StartTimerAsync();
+                await _timerBeforeStart.StartTimerAsync(); // после таймера включаем контроллеры
 
                 SwitchCarsInputEnabledState(true);
             }
@@ -122,7 +121,6 @@ namespace GhostRaceTest.Race
         private void OnStartNextRace()
         {
             Restart();
-
             Start();
         }
 

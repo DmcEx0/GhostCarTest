@@ -9,6 +9,7 @@ namespace GhostRaceTest.Utils
     public class CarSpawner
     {
         private readonly GameConfig _gameConfig;
+        private readonly GhostConfig _ghostConfig;
         private readonly GameObjectFactory _factory;
         private readonly ICameraSetter _cameraSetter;
         
@@ -22,7 +23,7 @@ namespace GhostRaceTest.Utils
         [Inject]
         public CarSpawner(GameConfig gameConfig, GameObjectFactory factory, ICameraSetter cameraSetter,
             Transform playerSpawnPoint, Transform ghostSpawnPoint, PlayerInputRouter playerInputRouter,
-            GhostInputRouter ghostInputRouter)
+            GhostInputRouter ghostInputRouter, GhostConfig ghostConfig)
         {
             _gameConfig = gameConfig;
             _factory = factory;
@@ -32,6 +33,7 @@ namespace GhostRaceTest.Utils
             _playerInputRouter = playerInputRouter;
             _ghostInputRouter = ghostInputRouter;
             _iGhostInputRouter = ghostInputRouter;
+            _ghostConfig = ghostConfig;
         }
     
         public SimcadeVehicleController SpawnPlayer()
@@ -49,6 +51,7 @@ namespace GhostRaceTest.Utils
         {
             var ghostCar = SpawnCar(_ghostSpawnPoint);
             ghostCar.Configure(_ghostInputRouter);
+            ghostCar.BodyMesh.material = _ghostConfig.Material;
             _iGhostInputRouter.SetTransform(ghostCar.transform);
     
             return ghostCar;

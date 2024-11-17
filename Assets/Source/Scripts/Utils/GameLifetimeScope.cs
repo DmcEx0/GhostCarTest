@@ -24,6 +24,7 @@ namespace GhostRaceTest.Utils
         [SerializeField] private FinishGate _finishGate;
         [SerializeField] private Transform _playerSpawnPoint;
     
+        // регистрируем зависимости
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(_gameConfig);

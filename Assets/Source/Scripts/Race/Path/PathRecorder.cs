@@ -29,6 +29,7 @@ namespace GhostRaceTest.Race.Path
             _pathGameObjectPoints = new();
         }
     
+        // Записываем точки, где проехал игрок в коллекцию раз в N-количетво юнитов
         public async UniTask StartRecordPathAsync()
         {
             _isRecording = true;
@@ -48,7 +49,8 @@ namespace GhostRaceTest.Race.Path
         public void AddPathPoint()
         {
             _pathPoints.Add(_playerTransform.position);
-            if (_gameConfig.ShowPathPoints)
+            
+            if (_gameConfig.ShowPathPoints) // в конфиге можно выключить отображение поинтов
             {
                 var instance = _factory.Create(_gameConfig.TrackPointPrefab, _playerTransform.position);
                 _pathGameObjectPoints.Add(instance);

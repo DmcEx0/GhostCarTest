@@ -10,7 +10,7 @@ namespace GhostRaceTest.Ghost
     public class GhostAI
     {
         private const float AngleOffset = 2f;
-        private const float DefaultDirectionValue = 1f;
+        private const float DefaultSteeringValue = 1f;
         private const float DefaultBreakingValue = 1f;
         private const float DefaultNotBreakingValue = 0f;
 
@@ -34,6 +34,7 @@ namespace GhostRaceTest.Ghost
             Reset();
         }
 
+        // В зависимости от угла между призраком и следущей точки, возвращает 1 или -1
         public float GetDirectionToNextPoint(Transform ghostTransform)
         {
             if (IsNextPointReached(ghostTransform))
@@ -46,16 +47,16 @@ namespace GhostRaceTest.Ghost
 
             Vector3 playerForward = ghostTransform.forward;
 
-            _currentAngle = Vector3.SignedAngle(playerForward, directionToTarget, Vector3.up);
+            _currentAngle = Vector3.SignedAngle(playerForward, directionToTarget, Vector3.up); 
 
             if (_currentAngle > AngleOffset)
             {
-                return DefaultDirectionValue;
+                return DefaultSteeringValue;
             }
 
             if (_currentAngle < -AngleOffset)
             {
-                return -DefaultDirectionValue;
+                return -DefaultSteeringValue;
             }
 
             return 0;
@@ -70,7 +71,7 @@ namespace GhostRaceTest.Ghost
         {
             var absoluteAngle = Mathf.Abs(_currentAngle);
 
-            if (absoluteAngle >= _ghostConfig.AngleForBreaking)
+            if (absoluteAngle >= _ghostConfig.AngleForBreaking) // Если угол между призраком и точкой большой, замедляем скорость и притормаживаем
             {
                 PreformBreakingAsync().Forget();
                 return _ghostConfig.SpeedOnSteering;
@@ -86,6 +87,7 @@ namespace GhostRaceTest.Ghost
             _canBreaking = true;
         }
 
+        // Торможение доступно один раз за проеханный поинт
         private async UniTask PreformBreakingAsync()
         {
             if (_canBreaking == false)
