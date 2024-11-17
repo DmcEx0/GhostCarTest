@@ -1,7 +1,10 @@
+using UnityEngine;
+
 namespace GhostRaceTest.Utils
 {
     public interface ICameraSetter
     {
-        public void SetCameraPosition();
+        public void SetCameraDefaultPosition();
+        public void SetCameraTarget(Transform target);
     }
 }

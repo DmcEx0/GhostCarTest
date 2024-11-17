@@ -53,8 +53,6 @@ namespace GhostRaceTest.Race.Path
                 var instance = _factory.Create(_gameConfig.TrackPointPrefab, _playerTransform.position);
                 _pathGameObjectPoints.Add(instance);
             }
-            
-            Debug.Log(_pathPoints.Count);
         }
     
         public void StopRecordPath()

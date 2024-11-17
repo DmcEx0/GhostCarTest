@@ -19,7 +19,6 @@ namespace GhostRaceTest.Race
         private readonly UIProvider _uiProvider;
         private readonly FinishGate _finishGate;
         private readonly CarSpawner _carSpawner;
-        private readonly ICameraSetter _cameraSetter;
 
         private SimcadeVehicleController _playerCar;
         private SimcadeVehicleController _ghostCar;
@@ -27,14 +26,13 @@ namespace GhostRaceTest.Race
         private int _currentRace = 1;
 
         public RaceController(UIProvider uiProvider, TimerBeforeStart timerBeforeStart, IPathRecorder pathRecorder,
-            FinishGate finishGate, CarSpawner carSpawner, ICameraSetter cameraSetter)
+            FinishGate finishGate, CarSpawner carSpawner)
         {
             _uiProvider = uiProvider;
             _timerBeforeStart = timerBeforeStart;
             _pathRecorder = pathRecorder;
             _finishGate = finishGate;
             _carSpawner = carSpawner;
-            _cameraSetter = cameraSetter;
         }
 
         public void Initialize()
@@ -143,8 +141,6 @@ namespace GhostRaceTest.Race
             {
                 Object.Destroy(_ghostCar.gameObject);
             }
-            
-            _cameraSetter.SetCameraPosition();
         }
 
         private void SwitchCarsInputEnabledState(bool state)

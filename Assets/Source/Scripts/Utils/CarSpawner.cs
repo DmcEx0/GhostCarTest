@@ -1,5 +1,4 @@
 using Ashsvp;
-using Cinemachine;
 using GhostRaceTest.Configs;
 using GhostRaceTest.Input;
 using UnityEngine;
@@ -11,7 +10,7 @@ namespace GhostRaceTest.Utils
     {
         private readonly GameConfig _gameConfig;
         private readonly GameObjectFactory _factory;
-        private readonly CinemachineVirtualCamera _virtualCamera;
+        private readonly ICameraSetter _cameraSetter;
         
         private readonly Transform _playerSpawnPoint;
         private readonly Transform _ghostSpawnPoint;
@@ -21,13 +20,13 @@ namespace GhostRaceTest.Utils
         private readonly IGhostInputRouter _iGhostInputRouter;
         
         [Inject]
-        public CarSpawner(GameConfig gameConfig, GameObjectFactory factory, CinemachineVirtualCamera virtualCamera,
+        public CarSpawner(GameConfig gameConfig, GameObjectFactory factory, ICameraSetter cameraSetter,
             Transform playerSpawnPoint, Transform ghostSpawnPoint, PlayerInputRouter playerInputRouter,
             GhostInputRouter ghostInputRouter)
         {
             _gameConfig = gameConfig;
             _factory = factory;
-            _virtualCamera = virtualCamera;
+            _cameraSetter = cameraSetter;
             _playerSpawnPoint = playerSpawnPoint;
             _ghostSpawnPoint = ghostSpawnPoint;
             _playerInputRouter = playerInputRouter;
@@ -40,8 +39,8 @@ namespace GhostRaceTest.Utils
             var playerCar = SpawnCar(_playerSpawnPoint);
             playerCar.Configure(_playerInputRouter);
             
-            _virtualCamera.Follow = playerCar.transform;
-            _virtualCamera.LookAt = playerCar.transform;
+            _cameraSetter.SetCameraDefaultPosition();
+            _cameraSetter.SetCameraTarget(playerCar.transform);
             
             return playerCar;
         }

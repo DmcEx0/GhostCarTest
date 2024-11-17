@@ -16,4 +16,5 @@ MonoBehaviour:
   <PlayerCar>k__BackingField: {fileID: 7762565399095393742, guid: 5a3291985f75415408e02799275cbf12, type: 3}
   <SecondsToStart>k__BackingField: 3
   <DistanceBetweenPathPoints>k__BackingField: 15
+  <CameraDefaultPosition>k__BackingField: {x: 0, y: 4, z: -14}
   <ShowPathPoints>k__BackingField: 1
