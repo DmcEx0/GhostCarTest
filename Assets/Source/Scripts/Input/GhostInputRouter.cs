@@ -4,22 +4,23 @@ using VContainer;
 public class GhostInputRouter : IInputRouter, IGhostInputRouter
 {
     private readonly GhostAI _ghostAi;
-    private readonly GameConfig _gameConfig;
+    private readonly GhostConfig _ghostConfig;
     
     private Transform _ghostTransform; 
 
     private bool _isEnabled;
-
+    
     [Inject]
-    public GhostInputRouter(GhostAI ghostAI, GameConfig gameConfig)
+    public GhostInputRouter(GhostAI ghostAI, GhostConfig ghostConfig)
     {
         _ghostAi = ghostAI;
-        _gameConfig = gameConfig;
+        _ghostConfig = ghostConfig;
     }
     
     public void OnEnable()
     {
         _isEnabled = true;
+        _ghostAi.SetNextPoint();
     }
 
     public void OnDisable()
@@ -34,7 +35,7 @@ public class GhostInputRouter : IInputRouter, IGhostInputRouter
             return 0;
         }
         
-        return _gameConfig.GhostSpeed;
+        return _ghostConfig.MaxSpeed;
     }
 
     public float GetSteering()

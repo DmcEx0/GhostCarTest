@@ -15,7 +15,7 @@ MonoBehaviour:
   <TrackPointPrefab>k__BackingField: {fileID: 7407339340701951398, guid: 3821e58c2da011145ae089c0ab641f1e, type: 3}
   <PlayerCar>k__BackingField: {fileID: 7762565399095393742, guid: 5a3291985f75415408e02799275cbf12, type: 3}
   <GhostMaterial>k__BackingField: {fileID: 2100000, guid: b6eed066a94abcf49b12326ad42df39d, type: 2}
-  <GhostSpeed>k__BackingField: 0.8
+  <GhostSpeed>k__BackingField: 0.6
   <SecondsToStart>k__BackingField: 3
-  <MillisecondsToRegisterPathPoint>k__BackingField: 500
-  <MillisecondsToStartRegisterPathPoint>k__BackingField: 900
+  <DistanceBetweenPathPoints>k__BackingField: 10
+  <ShowPathPoints>k__BackingField: 1

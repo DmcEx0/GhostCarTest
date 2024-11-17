@@ -6,10 +6,11 @@ using VContainer.Unity;
 public class GameLifetimeScope : LifetimeScope
 {
     [SerializeField] private GameConfig _gameConfig;
+    [SerializeField] private GhostConfig _ghostConfig;
     [SerializeField] private CinemachineVirtualCamera _camera;
     
     [Header("UI")]
-    [SerializeField] private UIController _uiController;
+    [SerializeField] private UIProvider _uiProvider;
 
     [Space] [Header("Track")] 
     [SerializeField] private FinishGate _finishGate;
@@ -18,8 +19,9 @@ public class GameLifetimeScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponent(_gameConfig);
+        builder.RegisterComponent(_ghostConfig);
         builder.RegisterComponent(_finishGate);
-        builder.RegisterComponent(_uiController);
+        builder.RegisterComponent(_uiProvider);
 
         builder.Register<TimerBeforeStart>(Lifetime.Scoped);
         builder.Register<CarSpawner>(Lifetime.Scoped).WithParameter(_camera).WithParameter(_playerSpawnPoint);

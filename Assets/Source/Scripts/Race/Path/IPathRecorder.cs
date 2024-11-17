@@ -5,6 +5,6 @@ public interface IPathRecorder
 {
     public UniTask StartRecordPathAsync();
     public void StopRecordPath();
-    public void Reset();
     public void SetPlayerTransform(Transform playerTransform);
+    public void AddPathPoint();
 }
