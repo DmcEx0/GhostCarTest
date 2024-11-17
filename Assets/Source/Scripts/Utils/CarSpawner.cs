@@ -10,7 +10,7 @@ namespace GhostRaceTest.Utils
     {
         private readonly GameConfig _gameConfig;
         private readonly GhostConfig _ghostConfig;
-        private readonly GameObjectFactory _factory;
+        private readonly IGameObjectFactory _factory;
         private readonly ICameraSetter _cameraSetter;
         
         private readonly Transform _playerSpawnPoint;
@@ -20,7 +20,7 @@ namespace GhostRaceTest.Utils
         private readonly IGhostInputRouter _iGhostInputRouter;
         
         [Inject]
-        public CarSpawner(GameConfig gameConfig, GameObjectFactory factory, ICameraSetter cameraSetter,
+        public CarSpawner(GameConfig gameConfig, IGameObjectFactory factory, ICameraSetter cameraSetter,
             Transform playerSpawnPoint, PlayerInputRouter playerInputRouter,
             GhostInputRouter ghostInputRouter, GhostConfig ghostConfig)
         {

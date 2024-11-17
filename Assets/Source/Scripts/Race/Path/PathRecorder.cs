@@ -9,7 +9,7 @@ namespace GhostRaceTest.Race.Path
     public class PathRecorder : IPathRecorder, IPathPoints
     {
         private readonly GameConfig _gameConfig;
-        private readonly GameObjectFactory _factory;
+        private readonly IGameObjectFactory _factory;
         
         private readonly List<Vector3> _pathPoints;
         private readonly List<GameObject> _pathGameObjectPoints;
@@ -20,7 +20,7 @@ namespace GhostRaceTest.Race.Path
     
         public IReadOnlyList<Vector3> PathPoints => _pathPoints;
     
-        public PathRecorder(GameConfig gameConfig, GameObjectFactory factory)
+        public PathRecorder(GameConfig gameConfig, IGameObjectFactory factory)
         {
             _gameConfig = gameConfig;
             _factory = factory;

@@ -6,7 +6,7 @@ using GhostRaceTest.UI;
 
 namespace GhostRaceTest.Race
 {
-    public class TimerBeforeStart
+    public class TimerBeforeStart : ITimerBeforeStart
     {
         private const int MinTime = 1;
         private const int TimerStep = 1;

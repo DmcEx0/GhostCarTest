@@ -32,7 +32,7 @@ namespace GhostRaceTest.Utils
             builder.RegisterComponent(_finishGate);
             builder.RegisterComponent(_uiProvider);
 
-            builder.Register<TimerBeforeStart>(Lifetime.Scoped);
+            builder.Register<TimerBeforeStart>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<CarSpawner>(Lifetime.Scoped).WithParameter(_camera).WithParameter(_playerSpawnPoint);
         
             builder.Register<PathRecorder>(Lifetime.Scoped).AsImplementedInterfaces();
@@ -40,7 +40,7 @@ namespace GhostRaceTest.Utils
             builder.Register<PlayerInputRouter>(Lifetime.Scoped);
             builder.Register<GhostInputRouter>(Lifetime.Scoped).As<IGhostInputRouter>().AsSelf();
             builder.Register<GhostAI>(Lifetime.Scoped);
-            builder.Register<GameObjectFactory>(Lifetime.Scoped);
+            builder.Register<GameObjectFactory>(Lifetime.Scoped).AsImplementedInterfaces();
         
             builder.RegisterEntryPoint<RaceController>().WithParameter(_playerSpawnPoint);
         }

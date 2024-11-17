@@ -14,7 +14,7 @@ namespace GhostRaceTest.Race
         private const int FirstRace = 1;
         private const int SecondRace = 2;
 
-        private readonly TimerBeforeStart _timerBeforeStart;
+        private readonly ITimerBeforeStart _timerBeforeStart;
         private readonly IPathRecorder _pathRecorder;
         private readonly UIProvider _uiProvider;
         private readonly FinishGate _finishGate;
@@ -25,7 +25,7 @@ namespace GhostRaceTest.Race
 
         private int _currentRace = 1;
 
-        public RaceController(UIProvider uiProvider, TimerBeforeStart timerBeforeStart, IPathRecorder pathRecorder,
+        public RaceController(UIProvider uiProvider, ITimerBeforeStart timerBeforeStart, IPathRecorder pathRecorder,
             FinishGate finishGate, CarSpawner carSpawner)
         {
             _uiProvider = uiProvider;
