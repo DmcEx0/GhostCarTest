@@ -9,30 +9,30 @@ public class TimerBeforeStart
     private const int TimerStep = 1;
 
     private readonly GameConfig _gameConfig;
-    private readonly TMP_Text _timerText;
+    private readonly UIController _uiController;
     
     private TimeSpan _currentTime;
     
-    public TimerBeforeStart(TMP_Text timerText, GameConfig gameConfig)
+    public TimerBeforeStart(UIController uiController, GameConfig gameConfig)
     {
         _gameConfig = gameConfig;
-        _timerText = timerText;
+        _uiController = uiController;
     }
     
     public async UniTask StartTimerAsync()
     {
         _currentTime = TimeSpan.FromSeconds(_gameConfig.SecondsToStart);
-        _timerText.gameObject.SetActive(true);
+        _uiController.TimerText.gameObject.SetActive(true);
         
         while (_currentTime >= TimeSpan.FromSeconds(MinTime))
         {
-            _timerText.text = _currentTime.TotalSeconds.ToString(CultureInfo.CurrentCulture);
+            _uiController.TimerText.text = _currentTime.TotalSeconds.ToString(CultureInfo.CurrentCulture);
             
             await UniTask.Delay(TimeSpan.FromSeconds(TimerStep));
             
             _currentTime -= TimeSpan.FromSeconds(TimerStep);
         }
         
-        _timerText.gameObject.SetActive(false);
+        _uiController.TimerText.gameObject.SetActive(false);
     }
 }

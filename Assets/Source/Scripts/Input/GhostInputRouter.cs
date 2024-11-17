@@ -1,9 +1,12 @@
+using UnityEngine;
 using VContainer;
 
-public class GhostInputRouter : IInputRouter
+public class GhostInputRouter : IInputRouter, IGhostInputRouter
 {
-    private GhostAI _ghostAi;
-    private GameConfig _gameConfig;
+    private readonly GhostAI _ghostAi;
+    private readonly GameConfig _gameConfig;
+    
+    private Transform _ghostTransform; 
 
     private bool _isEnabled;
 
@@ -41,7 +44,7 @@ public class GhostInputRouter : IInputRouter
             return 0;
         }
         
-        return 0;
+        return _ghostAi.GetDirectionToNextPoint(_ghostTransform);
     }
 
     public float GetBreak()
@@ -52,5 +55,10 @@ public class GhostInputRouter : IInputRouter
         }
         
         return 0;
+    }
+
+    public void SetTransform(Transform ghostTransform)
+    {
+        _ghostTransform = ghostTransform;
     }
 }

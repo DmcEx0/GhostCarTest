@@ -3,8 +3,8 @@ using Ashsvp;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 public class RaceController : IInitializable, IStartable, IDisposable
 {
@@ -12,67 +12,60 @@ public class RaceController : IInitializable, IStartable, IDisposable
 
     private readonly TimerBeforeStart _timerBeforeStart;
     private readonly IPathRecorder _pathRecorder;
-    private readonly Button _startButton;
+    private readonly UIController _uiController;
     private readonly FinishGate _finishGate;
     private readonly CarSpawner _carSpawner;
-    private readonly FallenZone _fallenZone;
 
-    private readonly TMP_Text _raceCounterText;
-    
     private SimcadeVehicleController _playerCar;
     private SimcadeVehicleController _ghostCar;
 
     private int _currentRace = 1;
 
-    public RaceController(Button startButton, TimerBeforeStart timerBeforeStart, IPathRecorder pathRecorder,
-        PlayerInputRouter playerInputRouter, GhostInputRouter ghostInputRouter, FinishGate finishGate, CarSpawner carSpawner,
-        TMP_Text raceCounterText, FallenZone fallenZone)
+    public RaceController(UIController uiController , TimerBeforeStart timerBeforeStart, IPathRecorder pathRecorder, 
+        FinishGate finishGate, CarSpawner carSpawner)
     {
+        _uiController = uiController;
         _timerBeforeStart = timerBeforeStart;
         _pathRecorder = pathRecorder;
-        _startButton = startButton;
         _finishGate = finishGate;
         _carSpawner = carSpawner;
-        _raceCounterText = raceCounterText;
-        _fallenZone = fallenZone;
     }
 
     public void Initialize()
     {
-        _startButton.onClick.AddListener(StartRace);
+        _uiController.StartButton.onClick.AddListener(StartRace);
         _finishGate.FinishReached += OnFinishReached;
-        _fallenZone.Fallen += OnFallen;
     }
 
     public void Start()
     {
+        _uiController.NextRaceButton.gameObject.SetActive(false);
+        _uiController.StartButton.gameObject.SetActive(true);
+
         SetRaceCounterText();
         _playerCar = _carSpawner.SpawnPlayer();
+        _playerCar.SetInputRouterEnabledState(false);
 
-        // switch (_currentRace)
-        // {
-        //     case 1:
-        //         StartWithoutGhost(playerCar);
-        //         break;
-        //     case 2:
-        //         StartWithGhost();
-        //         break;
-        // }
-        StartWithoutGhost();
-        StartWithGhost();
+        switch (_currentRace)
+        {
+            case 1:
+                StartWithoutGhost();
+                break;
+            case 2:
+                StartWithGhost();
+                break;
+        }
     }
 
     public void Dispose()
     {
-        _startButton.onClick.RemoveListener(StartRace);
+        _uiController.StartButton.onClick.RemoveListener(StartRace);
         _finishGate.FinishReached -= OnFinishReached;
-        _fallenZone.Fallen -= OnFallen;
     }
 
     private void StartWithoutGhost()
     {
         _pathRecorder.SetPlayerTransform(_playerCar.transform);
-        _playerCar.SetInputRouterEnabledState(false);
     }
 
     private void StartWithGhost()
@@ -83,7 +76,7 @@ public class RaceController : IInitializable, IStartable, IDisposable
 
     private void StartRace()
     {
-        _startButton.gameObject.SetActive(false);
+        _uiController.StartButton.gameObject.SetActive(false);
 
         StartRaceAsync().Forget();
 
@@ -99,22 +92,35 @@ public class RaceController : IInitializable, IStartable, IDisposable
 
     private void SetRaceCounterText()
     {
-        _raceCounterText.text = string.Format(_raceCounterText.text, _currentRace);
+        _uiController.RaceCounterText.text = string.Format(_uiController.RaceCounterText.text, _currentRace);
     }
 
     private void OnFinishReached()
     {
+        _uiController.NextRaceButton.gameObject.SetActive(true);
+        _uiController.NextRaceButton.onClick.AddListener(OnStartNextRace);
+
         SwitchCarsInputEnabledState(false);
-        
+
         _pathRecorder.StopRecordPath();
 
         _currentRace = Mathf.Clamp(_currentRace++, 1, MaxRaceCount);
     }
-
-    private void OnFallen()
-    {
-    }
     
+    private void OnStartNextRace()
+    {
+        Object.Destroy(_playerCar);
+        
+        if(_ghostCar !=null)
+        {
+            Object.Destroy(_ghostCar);
+        }
+        
+        Start();
+        
+        _uiController.NextRaceButton.onClick.RemoveListener(OnStartNextRace);
+    }
+
     private void SwitchCarsInputEnabledState(bool state)
     {
         _playerCar.SetInputRouterEnabledState(state);
