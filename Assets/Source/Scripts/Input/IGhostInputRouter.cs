@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IGhostInputRouter
+namespace GhostRaceTest.Input
 {
-    public void SetTransform(Transform ghostTransform);
+    public interface IGhostInputRouter
+    {
+        public void SetTransform(Transform ghostTransform);
+    }
 }

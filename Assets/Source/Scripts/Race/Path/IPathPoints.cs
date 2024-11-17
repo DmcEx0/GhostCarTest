@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPathPoints
+namespace GhostRaceTest.Race.Path
 {
-    public IReadOnlyList<Vector3> PathPoints { get; }
+    public interface IPathPoints
+    {
+        public IReadOnlyList<Vector3> PathPoints { get; }
+    }
 }

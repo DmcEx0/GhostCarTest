@@ -2,15 +2,18 @@ using System;
 using Ashsvp;
 using UnityEngine;
 
-public class FinishGate : MonoBehaviour
+namespace GhostRaceTest.Race
 {
-    public event Action FinishReached;
-    
-    private void OnTriggerEnter(Collider other)
+    public class FinishGate : MonoBehaviour
     {
-        if(other.TryGetComponent(out SimcadeVehicleController carController))
+        public event Action FinishReached;
+    
+        private void OnTriggerEnter(Collider other)
         {
-            FinishReached?.Invoke();
+            if(other.TryGetComponent(out SimcadeVehicleController carController))
+            {
+                FinishReached?.Invoke();
+            }
         }
     }
 }

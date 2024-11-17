@@ -1,63 +1,68 @@
+using GhostRaceTest.Ghost;
 using UnityEngine;
 using VContainer;
 
-public class GhostInputRouter : IInputRouter, IGhostInputRouter
+namespace GhostRaceTest.Input
 {
-    private readonly GhostAI _ghostAi;
-    
-    private Transform _ghostTransform; 
+    public class GhostInputRouter : IInputRouter, IGhostInputRouter
+    {
+        private readonly GhostAI _ghostAi;
 
-    private bool _isEnabled;
-    
-    [Inject]
-    public GhostInputRouter(GhostAI ghostAI)
-    {
-        _ghostAi = ghostAI;
-    }
-    
-    public void OnEnable()
-    {
-        _isEnabled = true;
-        _ghostAi.SetNextPoint();
-    }
+        private Transform _ghostTransform;
 
-    public void OnDisable()
-    {
-        _isEnabled = false;
-    }
+        private bool _isEnabled;
 
-    public float GetAcceleration()
-    {
-        if (_isEnabled == false)
+        [Inject]
+        public GhostInputRouter(GhostAI ghostAI)
         {
-            return 0;
+            _ghostAi = ghostAI;
         }
-        
-        return _ghostAi.CurrentSpeed;
-    }
 
-    public float GetSteering()
-    {
-        if (_isEnabled == false)
+        public void OnEnable()
         {
-            return 0;
+            _isEnabled = true;
+            _ghostAi.SetNextPoint();
         }
-        
-        return _ghostAi.GetDirectionToNextPoint(_ghostTransform);
-    }
 
-    public float GetBreak()
-    {
-        if (_isEnabled == false)
+        public void OnDisable()
         {
-            return 0;
+            _isEnabled = false;
+            _ghostAi.Reset();
         }
-        
-        return _ghostAi.BreakingValue;
-    }
 
-    public void SetTransform(Transform ghostTransform)
-    {
-        _ghostTransform = ghostTransform;
+        public float GetAcceleration()
+        {
+            if (_isEnabled == false)
+            {
+                return 0;
+            }
+
+            return _ghostAi.CurrentSpeed;
+        }
+
+        public float GetSteering()
+        {
+            if (_isEnabled == false)
+            {
+                return 0;
+            }
+
+            return _ghostAi.GetDirectionToNextPoint(_ghostTransform);
+        }
+
+        public float GetBreak()
+        {
+            if (_isEnabled == false)
+            {
+                return 0;
+            }
+
+            return _ghostAi.BreakingValue;
+        }
+
+        public void SetTransform(Transform ghostTransform)
+        {
+            _ghostTransform = ghostTransform;
+        }
     }
 }

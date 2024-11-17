@@ -1,4 +1,5 @@
 using System;
+using GhostRaceTest.Input;
 using UnityEngine;
 using UnityEngine.Events;
 

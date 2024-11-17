@@ -1,8 +1,11 @@
-public interface IInputRouter
+namespace GhostRaceTest.Input
 {
-    public void OnEnable();
-    public void OnDisable();
-    public float GetAcceleration();
-    public float GetSteering();
-    public float GetBreak();
+    public interface IInputRouter
+    {
+        public void OnEnable();
+        public void OnDisable();
+        public float GetAcceleration();
+        public float GetSteering();
+        public float GetBreak();
+    }
 }

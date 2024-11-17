@@ -1,38 +1,42 @@
 using System;
 using System.Globalization;
 using Cysharp.Threading.Tasks;
-using TMPro;
+using GhostRaceTest.Configs;
+using GhostRaceTest.UI;
 
-public class TimerBeforeStart
+namespace GhostRaceTest.Race
 {
-    private const int MinTime = 1;
-    private const int TimerStep = 1;
+    public class TimerBeforeStart
+    {
+        private const int MinTime = 1;
+        private const int TimerStep = 1;
 
-    private readonly GameConfig _gameConfig;
-    private readonly UIProvider _uiProvider;
+        private readonly GameConfig _gameConfig;
+        private readonly UIProvider _uiProvider;
     
-    private TimeSpan _currentTime;
+        private TimeSpan _currentTime;
     
-    public TimerBeforeStart(UIProvider uiProvider, GameConfig gameConfig)
-    {
-        _gameConfig = gameConfig;
-        _uiProvider = uiProvider;
-    }
-    
-    public async UniTask StartTimerAsync()
-    {
-        _currentTime = TimeSpan.FromSeconds(_gameConfig.SecondsToStart);
-        _uiProvider.TimerText.gameObject.SetActive(true);
-        
-        while (_currentTime >= TimeSpan.FromSeconds(MinTime))
+        public TimerBeforeStart(UIProvider uiProvider, GameConfig gameConfig)
         {
-            _uiProvider.TimerText.text = _currentTime.TotalSeconds.ToString(CultureInfo.CurrentCulture);
-            
-            await UniTask.Delay(TimeSpan.FromSeconds(TimerStep));
-            
-            _currentTime -= TimeSpan.FromSeconds(TimerStep);
+            _gameConfig = gameConfig;
+            _uiProvider = uiProvider;
         }
+    
+        public async UniTask StartTimerAsync()
+        {
+            _currentTime = TimeSpan.FromSeconds(_gameConfig.SecondsToStart);
+            _uiProvider.TimerText.gameObject.SetActive(true);
         
-        _uiProvider.TimerText.gameObject.SetActive(false);
+            while (_currentTime >= TimeSpan.FromSeconds(MinTime))
+            {
+                _uiProvider.TimerText.text = _currentTime.TotalSeconds.ToString(CultureInfo.CurrentCulture);
+            
+                await UniTask.Delay(TimeSpan.FromSeconds(TimerStep));
+            
+                _currentTime -= TimeSpan.FromSeconds(TimerStep);
+            }
+        
+            _uiProvider.TimerText.gameObject.SetActive(false);
+        }
     }
 }

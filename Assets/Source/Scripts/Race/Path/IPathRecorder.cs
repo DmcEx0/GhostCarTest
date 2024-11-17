@@ -1,10 +1,14 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public interface IPathRecorder
+namespace GhostRaceTest.Race.Path
 {
-    public UniTask StartRecordPathAsync();
-    public void StopRecordPath();
-    public void SetPlayerTransform(Transform playerTransform);
-    public void AddPathPoint();
+    public interface IPathRecorder
+    {
+        public UniTask StartRecordPathAsync();
+        public void StopRecordPath();
+        public void SetPlayerTransform(Transform playerTransform);
+        public void AddPathPoint();
+        public void Reset();
+    }
 }

@@ -1,11 +1,12 @@
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
-public class GameObjectFactory
+namespace GhostRaceTest.Utils
 {
-    public T Create<T>(T prefab, Vector3 position, Quaternion rotation = default) where T : Object
+    public class GameObjectFactory
     {
-        return Object.Instantiate(prefab, position, rotation);
+        public T Create<T>(T prefab, Vector3 position, Quaternion rotation = default) where T : Object
+        {
+            return Object.Instantiate(prefab, position, rotation);
+        }
     }
 }
