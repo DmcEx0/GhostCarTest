@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-using VContainer;
 
 namespace Ashsvp
 {
@@ -82,6 +81,18 @@ namespace Ashsvp
         public void Configure(IInputRouter inputRouter)
         {
             _inputRouter = inputRouter;
+        }
+        
+        public void SetInputRouterEnabledState(bool state)
+        {
+            if (state)
+            {
+                _inputRouter.OnEnable();
+            }
+            else
+            {
+                _inputRouter.OnDisable();
+            }
         }
 
         void Awake()

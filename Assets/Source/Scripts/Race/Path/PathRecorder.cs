@@ -7,8 +7,8 @@ public class PathRecorder : IPathRecorder, IPathPoints
 {
     private readonly GameConfig _gameConfig;
     private readonly GameObjectFactory _factory;
+    private readonly List<Vector3> _pathPoints;
     
-    private List<Vector3> _pathPoints;
     private Transform _playerTransform;
 
     private bool _isRecording;

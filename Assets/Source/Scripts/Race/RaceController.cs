@@ -13,23 +13,24 @@ public class RaceController : IInitializable, IStartable, IDisposable
     private readonly TimerBeforeStart _timerBeforeStart;
     private readonly IPathRecorder _pathRecorder;
     private readonly Button _startButton;
-    private readonly IInputRouter _inputRouter;
     private readonly FinishGate _finishGate;
     private readonly CarSpawner _carSpawner;
     private readonly FallenZone _fallenZone;
 
     private readonly TMP_Text _raceCounterText;
+    
+    private SimcadeVehicleController _playerCar;
+    private SimcadeVehicleController _ghostCar;
 
     private int _currentRace = 1;
 
     public RaceController(Button startButton, TimerBeforeStart timerBeforeStart, IPathRecorder pathRecorder,
-        PlayerInputRouter playerInputRouter, FinishGate finishGate, CarSpawner carSpawner, TMP_Text raceCounterText,
-        FallenZone fallenZone)
+        PlayerInputRouter playerInputRouter, GhostInputRouter ghostInputRouter, FinishGate finishGate, CarSpawner carSpawner,
+        TMP_Text raceCounterText, FallenZone fallenZone)
     {
         _timerBeforeStart = timerBeforeStart;
         _pathRecorder = pathRecorder;
         _startButton = startButton;
-        _inputRouter = playerInputRouter;
         _finishGate = finishGate;
         _carSpawner = carSpawner;
         _raceCounterText = raceCounterText;
@@ -41,24 +42,24 @@ public class RaceController : IInitializable, IStartable, IDisposable
         _startButton.onClick.AddListener(StartRace);
         _finishGate.FinishReached += OnFinishReached;
         _fallenZone.Fallen += OnFallen;
-        
-        _inputRouter.OnDisable();
     }
 
     public void Start()
     {
         SetRaceCounterText();
-        var playerCar = _carSpawner.SpawnPlayer();
+        _playerCar = _carSpawner.SpawnPlayer();
 
-        switch (_currentRace)
-        {
-            case 1:
-                StartWithoutGhost(playerCar);
-                break;
-            case 2:
-                StartWithGhost();
-                break;
-        }
+        // switch (_currentRace)
+        // {
+        //     case 1:
+        //         StartWithoutGhost(playerCar);
+        //         break;
+        //     case 2:
+        //         StartWithGhost();
+        //         break;
+        // }
+        StartWithoutGhost();
+        StartWithGhost();
     }
 
     public void Dispose()
@@ -68,14 +69,16 @@ public class RaceController : IInitializable, IStartable, IDisposable
         _fallenZone.Fallen -= OnFallen;
     }
 
-    private void StartWithoutGhost(SimcadeVehicleController playerCar)
+    private void StartWithoutGhost()
     {
-        _pathRecorder.SetPlayerTransform(playerCar.transform);
+        _pathRecorder.SetPlayerTransform(_playerCar.transform);
+        _playerCar.SetInputRouterEnabledState(false);
     }
 
     private void StartWithGhost()
     {
-        _ = _carSpawner.SpawnGhost();
+        _ghostCar = _carSpawner.SpawnGhost();
+        _ghostCar.SetInputRouterEnabledState(false);
     }
 
     private void StartRace()
@@ -88,7 +91,7 @@ public class RaceController : IInitializable, IStartable, IDisposable
         {
             await _timerBeforeStart.StartTimerAsync();
 
-            _inputRouter.OnEnable();
+            SwitchCarsInputEnabledState(true);
 
             _pathRecorder.StartRecordPathAsync().Forget();
         }
@@ -101,7 +104,8 @@ public class RaceController : IInitializable, IStartable, IDisposable
 
     private void OnFinishReached()
     {
-        _inputRouter.OnDisable();
+        SwitchCarsInputEnabledState(false);
+        
         _pathRecorder.StopRecordPath();
 
         _currentRace = Mathf.Clamp(_currentRace++, 1, MaxRaceCount);
@@ -109,5 +113,15 @@ public class RaceController : IInitializable, IStartable, IDisposable
 
     private void OnFallen()
     {
+    }
+    
+    private void SwitchCarsInputEnabledState(bool state)
+    {
+        _playerCar.SetInputRouterEnabledState(state);
+
+        if (_ghostCar != null)
+        {
+            _ghostCar.SetInputRouterEnabledState(state);
+        }
     }
 }

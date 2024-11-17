@@ -43,11 +43,24 @@ public class CarSpawner
         var ghostCar = SpawnCar(_ghostSpawnPoint);
         ghostCar.Configure(_ghostInputRouter);
 
+        // GhostConfigure(ghostCar);
+
         return ghostCar;
     }
 
     private SimcadeVehicleController SpawnCar(Transform spawnPoint)
     {
         return  _factory.Create(_gameConfig.PlayerCar, spawnPoint.position);
+    }
+    
+    private void GhostConfigure(SimcadeVehicleController ghostCar)
+    {
+
+        // var childCount = ghostCar.gameObject.transform.childCount;
+
+        // for (int i = 0; i < childCount; i++)
+        // {
+        //     ghostCar.gameObject.transform.GetChild(i).gameObject.layer = 7;
+        // }
     }
 }

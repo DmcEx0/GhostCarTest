@@ -19,7 +19,6 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private FinishGate _finishGate;
     [SerializeField] private FallenZone _fallenZone;
     [SerializeField] private Transform _playerSpawnPoint;
-    [SerializeField] private Transform _ghostSpawnPoint;
     
     protected override void Configure(IContainerBuilder builder)
     {
@@ -33,6 +32,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.Register<PathRecorder>(Lifetime.Scoped).AsImplementedInterfaces();
         builder.Register<PlayerInputRouter>(Lifetime.Scoped);
         builder.Register<GhostInputRouter>(Lifetime.Scoped);
+        builder.Register<GhostAI>(Lifetime.Scoped);
         builder.Register<GameObjectFactory>(Lifetime.Scoped);
         
         builder.RegisterEntryPoint<RaceController>().WithParameter(_startButton).WithParameter(_playerSpawnPoint)
